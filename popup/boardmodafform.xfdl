@@ -1,0 +1,123 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="boardModal" width="430" height="390" titletext="New Form" onload="boardModal_onload">
+    <Layouts>
+      <Layout height="390" width="430">
+        <Edit id="e_title" taborder="0" left="70" top="30" width="321" height="46"/>
+        <TextArea id="e_contents" taborder="1" left="32" top="132" width="380" height="226"/>
+        <Edit id="e_name" taborder="2" left="70" top="89" width="321" height="33"/>
+        <Static id="Static00" taborder="3" text="제목" left="4" top="28" width="64" height="44" textAlign="center" font="bold 12px/normal &quot;Arial&quot;,&quot;Malgun Gothic&quot;,&quot;Gulim&quot;"/>
+        <Static id="Static00_00" taborder="4" text="작성자" left="4" top="82" width="64" height="44" textAlign="center" font="bold 12px/normal &quot;Arial&quot;,&quot;Malgun Gothic&quot;,&quot;Gulim&quot;"/>
+        <Static id="Static00_00_00" taborder="5" text=" 내용" left="0" top="223" width="64" height="44" font="bold 12px/normal &quot;Arial&quot;,&quot;Malgun Gothic&quot;,&quot;Gulim&quot;"/>
+        <Button id="Button00" taborder="6" text="저장" left="122" top="362" width="196" height="21" onclick="Button00_onclick"/>
+      </Layout>
+    </Layouts>
+    <Objects>
+      <Dataset id="ds_bbs">
+        <ColumnInfo>
+          <Column id="BBS_ID" type="STRING" size="256"/>
+          <Column id="BBS_TITLE" type="STRING" size="256"/>
+          <Column id="BBS_CONTENTS" type="STRING" size="256"/>
+          <Column id="BBS_DATE" type="STRING" size="256"/>
+          <Column id="EMP_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Script type="xscript5.1"><![CDATA[include "scripts::commonDate.xjs";
+application = nexacro.getApplication();
+var today;
+var row;
+var status;
+
+this.boardModal_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{ 
+	this.ds_bbs.clearData();
+	status = this.parent.status;
+	today = this.parent.today; // 오픈함수에 파라미터로 보낸 today값 받는방법
+	row = this.parent.row;
+	//alert("today"+today+"//"+"row"+row);
+	if(status == "add"){
+	this.ds_bbs.addRow();
+	this.e_name.set_value(application.gv_empName);
+	}
+	if(status == "select"){
+	if(row != null){
+			var id = "selectBoarddetail";
+			var url = "svcOperate::selectBoarddetail";
+			var resData = "";
+			var reqData = "ds_bbs=ds_bbs";
+			var args = "row='"+row+"'";
+			var callback = "callback";
+			
+			this.transaction(id, url, resData, reqData, args, callback);
+	}
+	}
+};
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	trace("rrrrrooooowwwww"+row)
+	if(status == "select"){
+			this.ds_bbs.setColumn(0,"BBS_ID",row);
+			this.ds_bbs.setColumn(0,"BBS_TITLE",this.e_title.value);
+			this.ds_bbs.setColumn(0,"BBS_CONTENTS",this.e_contents.value);
+			this.ds_bbs.setColumn(0,"BBS_DATE",today);
+			this.ds_bbs.setColumn(0,"EMP_NAME",this.e_name.value);
+			
+			var id = "updateBoard";
+			var url = "svcOperate::updateBoard";
+			var resData = "ds_bbs=ds_bbs:u";
+			var reqData = "";
+			var args = "";
+			var callback = "callback";
+			
+			this.transaction(id, url, resData, reqData, args, callback);
+			
+			
+	}else if(status=="add"){
+	this.ds_bbs.setColumn(0,"BBS_TITLE",this.e_title.value)
+	this.ds_bbs.setColumn(0,"BBS_CONTENTS",this.e_contents.value)
+	this.ds_bbs.setColumn(0,"BBS_DATE",today)
+	this.ds_bbs.setColumn(0,"EMP_NAME",this.e_name.value)
+	var id = "insertBoard";
+	var url = "svcOperate::insertBoard";
+	var resData = "ds_bbs=ds_bbs";
+	var reqData = "";
+	var args = "";
+	var callback = "callback";
+	
+	this.transaction(id, url, resData, reqData, args, callback);
+	}
+	
+};
+
+ this.callback = function(trid, ErrorCode, ErrorMsg){
+ 	if(trid=="insertBoard"){
+ 		//alert(trid+"완료")
+ 		if(ErrorCode<0){
+ 			alert("조회실패 : "+ErrorMsg);
+ 		}
+ 		this.close()
+ 	}
+ 		if(trid=="updateBoard"){
+ 		//alert(trid+"완료")
+ 		if(ErrorCode<0){
+ 			alert("조회실패 : "+ErrorMsg);
+ 		}
+ 		this.close()
+ 	}
+ 		if(trid=="selectBoarddetail"){
+ 		//alert(trid+"완료")
+ 		if(ErrorCode<0){
+ 			alert("조회실패 : "+ErrorMsg);
+ 		}
+ 	}
+ }
+]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="e_contents" propid="value" datasetid="ds_bbs" columnid="BBS_CONTENTS"/>
+      <BindItem id="item1" compid="e_title" propid="value" datasetid="ds_bbs" columnid="BBS_TITLE"/>
+      <BindItem id="item2" compid="e_name" propid="value" datasetid="ds_bbs" columnid="EMP_NAME"/>
+    </Bind>
+  </Form>
+</FDL>

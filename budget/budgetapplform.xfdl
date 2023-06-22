@@ -1,0 +1,325 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="budgetapplform" width="1080" height="570" titletext="New Form" onload="budgetapplform_onload">
+    <Layouts>
+      <Layout height="570" width="1080">
+        <Grid id="Grid00" taborder="0" left="51" top="92" width="281" height="478" binddataset="ds_budgetCode" oncellclick="Grid00_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="140"/>
+                <Column size="140"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="예산코드"/>
+                <Cell col="1" text="예산과목명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:BUDGET_CODE"/>
+                <Cell col="1" text="bind:BUDGET_NAME"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00" taborder="1" text="예산신청" left="66" top="31" width="251" height="75" onclick="Static00_onclick" textAlign="center" font="normal 18pt/normal &quot;Arial&quot;"/>
+        <Button id="Button00" taborder="2" text="추가" left="876" top="60" width="57" height="25" onclick="Button00_onclick" borderRadius="5px" font="bold 14px/normal &quot;Arial&quot;,&quot;Malgun Gothic&quot;,&quot;Gulim&quot;"/>
+        <Grid id="Grid00_00" taborder="3" left="420" top="370" width="576" height="192" binddataset="ds_budget1" oncelldblclick="Grid00_00_oncelldblclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48"/>
+                <Column size="96"/>
+                <Column size="48"/>
+                <Column size="96"/>
+                <Column size="48"/>
+                <Column size="96"/>
+                <Column size="48"/>
+                <Column size="95"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+                <Row size="24"/>
+                <Row size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="월"/>
+                <Cell col="1" text="금액"/>
+                <Cell col="2" text="월"/>
+                <Cell col="3" text="금액"/>
+                <Cell col="4" text="월"/>
+                <Cell col="5" text="금액"/>
+                <Cell col="6" text="분기"/>
+                <Cell col="7" text="금액"/>
+              </Band>
+              <Band id="body">
+                <Cell textAlign="center" text="01"/>
+                <Cell col="1" textAlign="center" text="bind:M1BUDGET" edittype="mask" displaytype="number"/>
+                <Cell col="2" textAlign="center" text="02"/>
+                <Cell col="3" textAlign="center" text="bind:M2BUDGET" edittype="mask" displaytype="number"/>
+                <Cell col="4" textAlign="center" text="03"/>
+                <Cell col="5" textAlign="center" text="bind:M3BUDGET" edittype="mask" displaytype="number"/>
+                <Cell col="6" textAlign="center" text="1분기"/>
+                <Cell col="7" textAlign="center" expr="parseInt(M1BUDGET)+parseInt(M2BUDGET)+parseInt(M3BUDGET)" displaytype="number"/>
+                <Cell row="1" textAlign="center" text="04"/>
+                <Cell row="1" col="1" textAlign="center" text="bind:M4BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="1" col="2" textAlign="center" text="05"/>
+                <Cell row="1" col="3" textAlign="center" text="bind:M5BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="1" col="4" textAlign="center" text="06"/>
+                <Cell row="1" col="5" textAlign="center" text="bind:M6BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="1" col="6" textAlign="center" text="2분기"/>
+                <Cell row="1" col="7" textAlign="center" expr="parseInt(M4BUDGET)+parseInt(M5BUDGET)+parseInt(M6BUDGET)" displaytype="number"/>
+                <Cell row="2" textAlign="center" text="07"/>
+                <Cell row="2" col="1" textAlign="center" text="bind:M7BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="2" col="2" textAlign="center" text="08"/>
+                <Cell row="2" col="3" textAlign="center" text="bind:M8BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="2" col="4" textAlign="center" text="09"/>
+                <Cell row="2" col="5" textAlign="center" text="bind:M9BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="2" col="6" textAlign="center" text="3분기"/>
+                <Cell row="2" col="7" textAlign="center" expr="parseInt(M7BUDGET)+parseInt(M8BUDGET)+parseInt(M9BUDGET)" displaytype="number"/>
+                <Cell row="3" textAlign="center" text="10"/>
+                <Cell row="3" col="1" textAlign="center" text="bind:M10BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="3" col="2" textAlign="center" text="11"/>
+                <Cell row="3" col="3" textAlign="center" text="bind:M11BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="3" col="4" textAlign="center" text="12"/>
+                <Cell row="3" col="5" textAlign="center" text="bind:M12BUDGET" edittype="mask" displaytype="number"/>
+                <Cell row="3" col="6" textAlign="center" text="4분기"/>
+                <Cell row="3" col="7" textAlign="center" expr="parseInt(M10BUDGET)+parseInt(M11BUDGET)+parseInt(M12BUDGET)" displaytype="number"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Button id="Button00_00" taborder="4" text="저장" left="943" top="60" width="57" height="25" onclick="Button01_onclick" borderRadius="5px" font="bold 14px/normal &quot;Arial&quot;,&quot;Malgun Gothic&quot;,&quot;Gulim&quot;"/>
+        <Static id="Static01" taborder="5" text="당기" left="382" top="341" width="108" height="34" font="normal 12pt/normal &quot;Arial&quot;" textAlign="center"/>
+        <Grid id="Grid00_01" taborder="6" left="420" top="116" width="576" height="192" binddataset="ds_budget">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="48"/>
+                <Column size="96"/>
+                <Column size="48"/>
+                <Column size="96"/>
+                <Column size="48"/>
+                <Column size="96"/>
+                <Column size="48"/>
+                <Column size="95"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+                <Row size="24"/>
+                <Row size="24"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="월"/>
+                <Cell col="1" text="금액"/>
+                <Cell col="2" text="월"/>
+                <Cell col="3" text="금액"/>
+                <Cell col="4" text="월"/>
+                <Cell col="5" text="금액"/>
+                <Cell col="6" text="분기"/>
+                <Cell col="7" text="금액"/>
+              </Band>
+              <Band id="body">
+                <Cell textAlign="center" text="01"/>
+                <Cell col="1" textAlign="center" text="bind:M1BUDGET"/>
+                <Cell col="2" textAlign="center" text="02"/>
+                <Cell col="3" textAlign="center" text="bind:M2BUDGET"/>
+                <Cell col="4" textAlign="center" text="03"/>
+                <Cell col="5" textAlign="center" text="bind:M3BUDGET"/>
+                <Cell col="6" textAlign="center" text="1분기"/>
+                <Cell col="7" textAlign="center" expr="M1BUDGET+M2BUDGET+M3BUDGET" displaytype="number"/>
+                <Cell row="1" textAlign="center" text="04"/>
+                <Cell row="1" col="1" textAlign="center" text="bind:M4BUDGET"/>
+                <Cell row="1" col="2" textAlign="center" text="05"/>
+                <Cell row="1" col="3" textAlign="center" text="bind:M5BUDGET"/>
+                <Cell row="1" col="4" textAlign="center" text="06"/>
+                <Cell row="1" col="5" textAlign="center" text="bind:M6BUDGET"/>
+                <Cell row="1" col="6" textAlign="center" text="2분기"/>
+                <Cell row="1" col="7" textAlign="center" expr="M4BUDGET+M5BUDGET+M6BUDGET" displaytype="number"/>
+                <Cell row="2" textAlign="center" text="07"/>
+                <Cell row="2" col="1" textAlign="center" text="bind:M7BUDGET"/>
+                <Cell row="2" col="2" textAlign="center" text="08"/>
+                <Cell row="2" col="3" textAlign="center" text="bind:M8BUDGET"/>
+                <Cell row="2" col="4" textAlign="center" text="09"/>
+                <Cell row="2" col="5" textAlign="center" text="bind:M9BUDGET"/>
+                <Cell row="2" col="6" textAlign="center" text="3분기"/>
+                <Cell row="2" col="7" textAlign="center" expr="M7BUDGET+M8BUDGET+M9BUDGET" displaytype="number"/>
+                <Cell row="3" textAlign="center" text="10"/>
+                <Cell row="3" col="1" textAlign="center" text="bind:M10BUDGET"/>
+                <Cell row="3" col="2" textAlign="center" text="11"/>
+                <Cell row="3" col="3" textAlign="center" text="bind:M11BUDGET"/>
+                <Cell row="3" col="4" textAlign="center" text="12"/>
+                <Cell row="3" col="5" textAlign="center" text="bind:M12BUDGET"/>
+                <Cell row="3" col="6" textAlign="center" text="4분기"/>
+                <Cell row="3" col="7" textAlign="center" expr="M10BUDGET+M11BUDGET+M12BUDGET" displaytype="number"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static01_00" taborder="7" text="전기" left="382" top="86" width="108" height="34" font="normal 12pt/normal &quot;Arial&quot;" textAlign="center"/>
+        <Edit id="ed_workplace" taborder="8" left="420" top="48" width="184" height="34" borderRadius="5px" displaynulltext="작업장을 선택해주세요" textAlign="center" oneditclick="ed_workplace_oneditclick" readonly="false" enable="true"/>
+        <Edit id="ed_deptCode" taborder="9" left="644" top="48" width="184" height="34" borderRadius="5px" displaynulltext="부서를 선택해주세요" textAlign="center" enable="true" oneditclick="ed_deptCode_oneditclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include "scripts::commonOpen.xjs";
+application = nexacro.getApplication();
+
+var period = "6";
+var budgetCode;
+var budgetingCode = "2";
+this.budgetapplform_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{		
+		var id = "budgetcode";
+		var url = "svcBudget::budgetcode";
+		var resData = "";
+		var reqData = "ds_budgetCode=ds_budgetCode";
+		var args = "";
+		var callback = "callback";		
+		this.transaction(id, url, resData, reqData, args, callback);
+
+};
+		this.callback = function(trid , ErrorCode, ErrorMsg){
+		
+		strXml = this.ds_budget.saveXML();
+		
+		
+
+
+		
+		
+		}
+//추가
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	this.ds_budget1.addRow();
+	this.Button00.set_enable("false")
+};
+//저장
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	var dc = this.ed_deptCode.value;
+	var wc = this.ed_workplace.value;
+	alert(wc+"======="+dc);
+	var code="1"
+	if(wc=="null"){
+		alert("작업장 코드를 선택해주세요")
+		
+
+	}
+	if(dc=="null"){
+		alert("부서 코드를 선택해주세요")
+		
+	}
+	else{
+		this.Button00.set_enable("true")
+		this.ds_budget1.setColumn(0,"WORKPLACE_CODE",wc)
+		this.ds_budget1.setColumn(0,"DEPT_CODE",dc)
+		this.ds_budget1.setColumn(0,"BUDGETING_CODE",code)
+	 	var id = "batchbudgetlist";
+ 		var url = "svcBudget::batch";
+ 		var resData = "ds_budget=ds_budget1";
+ 		var reqData = "";
+		var args = "period='"+period+"' budgetCode='"+budgetCode+"'";
+ 		var callback = "callback";		
+ 		this.transaction(id, url, resData, reqData, args, callback);
+		this.reload();
+		}
+	
+
+};
+
+
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+		budgetCode = this.ds_budgetCode.getColumn(e.row,"BUDGET_CODE")
+		alert(budgetingCode);
+ 		var id = "budgetlist";
+ 		var url = "svcBudget::budgetlist";
+ 		var resData = "";
+ 		var reqData = "ds_budget=ds_budget";
+		var args = "budgetCode='"+budgetCode+"' budgetingCode='"+budgetingCode+"'";
+ 		var callback = "callback";		
+ 		this.transaction(id, url, resData, reqData, args, callback);
+};
+
+this.ed_workplace_oneditclick = function(obj:nexacro.Edit,e:nexacro.EditClickEventInfo)
+{
+	this.gfnOpen("workplacepopup", "popup::workplacepopupform.xfdl", "callback", null)
+	
+};
+this.ed_deptCode_oneditclick = function(obj:nexacro.Edit,e:nexacro.EditClickEventInfo)
+{
+	this.gfnOpen("deptpopup", "popup::deptpopupform.xfdl", "callback", null)
+};
+this.callback = function(trid, ErrorCode, ErrorMsg){
+
+if(trid == "workplacepopup"){
+	this.ed_workplace.set_value(application.gds_department.getColumn(0,"WORKPLACE_CODE"))
+	this.ed_workplace.set_enable("false");
+
+}
+if(trid == "deptpopup"){
+	this.ed_deptCode.set_value(application.gds_department.getColumn(0,"DEPT_CODE"))
+	this.ed_deptCode.set_enable("false");
+}
+}
+]]></Script>
+    <Objects>
+      <Dataset id="ds_budget">
+        <ColumnInfo>
+          <Column id="DEPT_CODE" type="STRING" size="256"/>
+          <Column id="WORKPLACE_CODE" type="STRING" size="256"/>
+          <Column id="BUDGET_CODE" type="STRING" size="256"/>
+          <Column id="ACCOUNT_PERIOD_NO" type="STRING" size="256"/>
+          <Column id="BUDGETING_CODE" type="STRING" size="256"/>
+          <Column id="M1BUDGET" type="INT" size="256"/>
+          <Column id="M2BUDGET" type="INT" size="256"/>
+          <Column id="M3BUDGET" type="INT" size="256"/>
+          <Column id="M4BUDGET" type="INT" size="256"/>
+          <Column id="M5BUDGET" type="INT" size="256"/>
+          <Column id="M6BUDGET" type="INT" size="256"/>
+          <Column id="M7BUDGET" type="INT" size="256"/>
+          <Column id="M8BUDGET" type="INT" size="256"/>
+          <Column id="M9BUDGET" type="INT" size="256"/>
+          <Column id="M10BUDGET" type="INT" size="256"/>
+          <Column id="M11BUDGET" type="INT" size="256"/>
+          <Column id="M12BUDGET" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_budget1">
+        <ColumnInfo>
+          <Column id="DEPT_CODE" type="STRING" size="256"/>
+          <Column id="WORKPLACE_CODE" type="STRING" size="256"/>
+          <Column id="BUDGET_CODE" type="STRING" size="256"/>
+          <Column id="ACCOUNT_PERIOD_NO" type="STRING" size="256"/>
+          <Column id="BUDGETING_CODE" type="STRING" size="256"/>
+          <Column id="M1BUDGET" type="INT" size="256"/>
+          <Column id="M2BUDGET" type="INT" size="256"/>
+          <Column id="M3BUDGET" type="INT" size="256"/>
+          <Column id="M4BUDGET" type="INT" size="256"/>
+          <Column id="M5BUDGET" type="INT" size="256"/>
+          <Column id="M6BUDGET" type="INT" size="256"/>
+          <Column id="M7BUDGET" type="INT" size="256"/>
+          <Column id="M8BUDGET" type="INT" size="256"/>
+          <Column id="M9BUDGET" type="INT" size="256"/>
+          <Column id="M10BUDGET" type="INT" size="256"/>
+          <Column id="M11BUDGET" type="INT" size="256"/>
+          <Column id="M12BUDGET" type="INT" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_budgetCode">
+        <ColumnInfo>
+          <Column id="BUDGET_CODE" type="STRING" size="256"/>
+          <Column id="BUDGET_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

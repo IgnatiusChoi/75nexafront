@@ -1,0 +1,244 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="assetmanagementForm" width="1080" height="570" titletext="New Form" onload="assetmanagementForm_onload">
+    <Layouts>
+      <Layout height="570" width="1080">
+        <Grid id="Grid00" taborder="0" left="46" top="146" width="300" height="190" binddataset="ds_asset" oncellclick="Grid00_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="번호"/>
+                <Cell col="1" text="자산분류"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ASSET_NUMBER" textAlign="center"/>
+                <Cell col="1" text="bind:ASSET_NAME" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Grid id="Grid00_00" taborder="1" left="46" top="360" width="300" height="190" binddataset="ds_assetitem" oncellclick="Grid00_00_oncellclick">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="150"/>
+                <Column size="150"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell text="관리번호"/>
+                <Cell col="1" text="자산관리명"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:ASSET_ITEM_CODE" textAlign="center"/>
+                <Cell col="1" text="bind:ASSET_ITEM_NAME" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Static id="Static00" taborder="2" text="자산관리대장" left="75" top="41" width="251" height="75" onclick="Static00_onclick" textAlign="center" font="normal 18pt/normal &quot;Arial&quot;"/>
+        <MaskEdit id="et_parentsCode" taborder="3" left="426" top="221" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <MaskEdit id="ME_usefulLift" taborder="4" left="426" top="443" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <MaskEdit id="et_accumulatedDepreciation" taborder="5" left="426" top="517" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
+        <MaskEdit id="et_acquisitionAmount" taborder="6" left="756" top="291" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
+        <MaskEdit id="et_residualValue" taborder="7" left="756" top="517" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
+        <Static id="Static01" taborder="8" text="관리번호" left="433" top="122" width="137" height="29"/>
+        <Static id="Static01_00" taborder="9" text="계정과목" left="433" top="196" width="137" height="29"/>
+        <Static id="Static01_01" taborder="10" text="취득일자" left="433" top="270" width="137" height="29"/>
+        <Static id="Static01_02" taborder="11" text="관리부서" left="433" top="344" width="137" height="29"/>
+        <Static id="Static01_03" taborder="12" text="내용연수" left="433" top="418" width="137" height="29"/>
+        <Static id="Static01_04" taborder="13" text="감가상각누계액" left="433" top="492" width="137" height="29"/>
+        <Static id="Static01_05" taborder="14" text="자산명" left="763" top="122" width="137" height="29"/>
+        <Static id="Static01_00_00" taborder="15" text="계정과목명" left="763" top="196" width="137" height="29"/>
+        <Static id="Static01_01_00" taborder="16" text="취득금액" left="763" top="270" width="137" height="29"/>
+        <Static id="Static01_04_00" taborder="17" text="잔존가치" left="763" top="492" width="137" height="29"/>
+        <Edit id="et_assetItemCode" taborder="18" left="426" top="148" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <Edit id="et_assetItemName" taborder="19" left="756" top="148" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <Edit id="et_acquisitionDate" taborder="20" left="426" top="291" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <Edit id="et_manageMentDeptName" taborder="21" left="426" top="364" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <Edit id="et_parentsName" taborder="22" left="756" top="221" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <Button id="Bt_delete" taborder="23" text="삭제" left="1000" top="96" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center"/>
+        <Button id="Bt_regist" taborder="24" text="등록" left="916" top="96" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center" onclick="Bt_regist_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[
+application = nexacro.getApplication();
+
+
+this.assetmanagementForm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+		var id = "assetList";
+		var url = "svcPosting::assetList";
+		var reqData = "";
+		var resData = "ds_asset=ds_asset";
+		var args = "";
+		var callback = "callback";
+
+		this.transaction(id, url, reqData, resData, args, callback);
+};
+
+
+this.callback = function(trid , ErrorCode, ErrorMsg){
+if(trid == "assetList"){
+	if(ErrorCode<0){
+	alert(trid+"  트랜잭션실패 , 사유"+ErrorMsg)
+	}
+}
+if(trid == "assetitemlist"){
+	if(ErrorCode<0){
+	alert(trid+"  트랜잭션실패 , 사유"+ErrorMsg)
+	}else{
+	strXml = this.ds_assetitem.saveXML();
+	this.alert("             strXml : "+strXml);
+	}
+}
+if(trid == "assetitemlistRegist"){
+	if(ErrorCode<0){
+	alert(trid+"  트랜잭션실패 , 사유"+ErrorMsg)
+	}else{
+	strXml = this.ds_assetitemMask.saveXML();
+	this.alert("             strXml : "+strXml);
+	}
+}
+}
+this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+	var assetCode = this.ds_asset.getColumn(e.row,"ASSET_CODE");
+	
+		var id = "assetitemlist";
+		var url = "svcPosting::assetitemlist";
+		var reqData = "";
+		var resData = "ds_assetitem=ds_assetitem";
+		var args = "assetCode='"+assetCode+"'";
+		var callback = "callback";
+
+		this.transaction(id, url, reqData, resData, args, callback);
+		this.ds_assetitemMask.clearData();
+		
+};
+
+this.Grid00_00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
+{
+		var value = this.ds_assetitem.getColumn(e.row,"ASSET_ITEM_CODE")
+		this.ds_assetitemMask.filter("ASSET_ITEM_CODE=='"+value+"'");
+		this.ds_assetitemMask.copyData(this.ds_assetitem);		
+};
+
+
+this.Bt_regist_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+ 		var assetItemCode = this.et_assetItemCode.value;
+ 		var assetItemName = this.et_assetItemName.value;
+ 		var acquisitionDate = this.et_acquisitionDate.value;
+ 		var acquisitionAmount = this.et_acquisitionAmount.value;
+		var manageMentDeptName = this.et_manageMentDeptName.value;
+		var parentsCode = this.et_parentsCode.value;
+		var parentsName = this.et_parentsName.value;
+		this.ds_assetitem.clearData();
+		this.ds_assetitemMask.clearData();
+		this.ds_assetitemMask.addRow();
+		this.ds_assetitemMask.setColumn(0,"ASSET_ITEM_CODE",assetItemCode);
+		this.ds_assetitemMask.setColumn(0,"ASSET_ITEM_NAME",assetItemName);
+		this.ds_assetitemMask.setColumn(0,"ACQUISITION_DATE",acquisitionDate);
+		this.ds_assetitemMask.setColumn(0,"ACQUISITION_AMOUNT",acquisitionAmount);
+		this.ds_assetitemMask.setColumn(0,"MANAGE_MENT_DEPT_NAME",manageMentDeptName);
+		this.ds_assetitemMask.setColumn(0,"PARENTS_CODE",parentsCode);
+		this.ds_assetitemMask.setColumn(0,"PARENTS_NAME",parentsName);
+		this.ds_assetitemMask.setColumn(0,"PARENTS_NAME",parentsName);
+		this.ds_assetitemMask.setColumn(0,"ACCUMULATED_DEPRECIATION",0);
+		this.ds_assetitemMask.setColumn(0,"RESIDUAL_VALUE",0);
+		
+		//this.ds_assetitemRegist.copyData(this.ds_assetitemMask);
+		
+		var id = "assetitemlistRegist";
+		var url = "svcPosting::assetitemlistRegist";
+		var reqData = "ds_assetitem=ds_assetitemMask";
+		var resData = "";
+		var args = "";
+		var callback = "callback";
+
+		this.transaction(id, url, reqData, resData, args, callback);
+		
+		this.reload();
+};
+]]></Script>
+    <Objects>
+      <Dataset id="ds_assetitem">
+        <ColumnInfo>
+          <Column id="ASSET_ITEM_CODE" type="STRING" size="256"/>
+          <Column id="ASSET_ITEM_NAME" type="STRING" size="256"/>
+          <Column id="ACQUISITION_DATE" type="STRING" size="256"/>
+          <Column id="ACQUISITION_AMOUNT" type="STRING" size="256"/>
+          <Column id="USEFUL_LIFT" type="STRING" size="256"/>
+          <Column id="MANAGE_MENT_DEPT_NAME" type="STRING" size="256"/>
+          <Column id="PARENTS_CODE" type="STRING" size="256"/>
+          <Column id="PARENTS_NAME" type="STRING" size="256"/>
+          <Column id="ASSET_NUMBER" type="STRING" size="256"/>
+          <Column id="ACCUMULATED_DEPRECIATION" type="STRING" size="256"/>
+          <Column id="RESIDUAL_VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_asset">
+        <ColumnInfo>
+          <Column id="ASSET_NUMBER" type="INT" size="256"/>
+          <Column id="ASSET_NAME" type="STRING" size="256"/>
+          <Column id="ASSET_CODE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_assetitemMask">
+        <ColumnInfo>
+          <Column id="ASSET_ITEM_CODE" type="STRING" size="256"/>
+          <Column id="ASSET_ITEM_NAME" type="STRING" size="256"/>
+          <Column id="ACQUISITION_DATE" type="STRING" size="256"/>
+          <Column id="ACQUISITION_AMOUNT" type="STRING" size="256"/>
+          <Column id="USEFUL_LIFT" type="STRING" size="256"/>
+          <Column id="MANAGE_MENT_DEPT_NAME" type="STRING" size="256"/>
+          <Column id="PARENTS_CODE" type="STRING" size="256"/>
+          <Column id="PARENTS_NAME" type="STRING" size="256"/>
+          <Column id="ASSET_NUMBER" type="STRING" size="256"/>
+          <Column id="ACCUMULATED_DEPRECIATION" type="STRING" size="256"/>
+          <Column id="RESIDUAL_VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+      <Dataset id="ds_assetitemRegist">
+        <ColumnInfo>
+          <Column id="ASSET_ITEM_CODE" type="STRING" size="256"/>
+          <Column id="ASSET_ITEM_NAME" type="STRING" size="256"/>
+          <Column id="ACQUISITION_DATE" type="STRING" size="256"/>
+          <Column id="ACQUISITION_AMOUNT" type="STRING" size="256"/>
+          <Column id="USEFUL_LIFT" type="STRING" size="256"/>
+          <Column id="MANAGE_MENT_DEPT_NAME" type="STRING" size="256"/>
+          <Column id="PARENTS_CODE" type="STRING" size="256"/>
+          <Column id="PARENTS_NAME" type="STRING" size="256"/>
+          <Column id="ASSET_NUMBER" type="STRING" size="256"/>
+          <Column id="ACCUMULATED_DEPRECIATION" type="STRING" size="256"/>
+          <Column id="RESIDUAL_VALUE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+    <Bind>
+      <BindItem id="item2" compid="et_parentsCode" propid="value" datasetid="ds_assetitemMask" columnid="PARENTS_CODE"/>
+      <BindItem id="item5" compid="et_acquisitionAmount" propid="value" datasetid="ds_assetitemMask" columnid="ACQUISITION_AMOUNT"/>
+      <BindItem id="item7" compid="ME_usefulLift" propid="value" datasetid="ds_assetitemMask" columnid="USEFUL_LIFT"/>
+      <BindItem id="item8" compid="et_accumulatedDepreciation" propid="value" datasetid="ds_assetitemMask" columnid="ACCUMULATED_DEPRECIATION"/>
+      <BindItem id="item9" compid="et_residualValue" propid="value" datasetid="ds_assetitemMask" columnid="RESIDUAL_VALUE"/>
+      <BindItem id="item0" compid="et_assetItemCode" propid="value" datasetid="ds_assetitemMask" columnid="ASSET_ITEM_CODE"/>
+      <BindItem id="item1" compid="et_assetItemName" propid="value" datasetid="ds_assetitemMask" columnid="ASSET_ITEM_NAME"/>
+      <BindItem id="item3" compid="et_parentsName" propid="value" datasetid="ds_assetitemMask" columnid="PARENTS_NAME"/>
+      <BindItem id="item4" compid="et_manageMentDeptName" propid="value" datasetid="ds_assetitemMask" columnid="MANAGE_MENT_DEPT_NAME"/>
+      <BindItem id="item6" compid="et_acquisitionDate" propid="value" datasetid="ds_assetitemMask" columnid="ACQUISITION_DATE"/>
+    </Bind>
+  </Form>
+</FDL>

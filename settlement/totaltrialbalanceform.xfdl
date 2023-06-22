@@ -1,0 +1,141 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="totaltrialbalanceForm" width="1080" height="570" titletext="New Form" onload="totaltrialbalanceForm_onload">
+    <Layouts>
+      <Layout height="570" width="1080">
+        <Static id="Static00" taborder="0" text="합계잔액시산표" left="75" top="31" width="251" height="75" onclick="Static00_onclick" textAlign="center" font="normal 18pt/normal &quot;Arial&quot;"/>
+        <Button id="Button00" taborder="1" text="조회" left="913" top="76" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center" onclick="Button00_onclick"/>
+        <Grid id="Grid00" taborder="2" left="0" top="120" width="1080" height="510" binddataset="ds_totaltrialbalance">
+          <Formats>
+            <Format id="default">
+              <Columns>
+                <Column size="216"/>
+                <Column size="216"/>
+                <Column size="216"/>
+                <Column size="216"/>
+                <Column size="216"/>
+              </Columns>
+              <Rows>
+                <Row size="24" band="head"/>
+                <Row size="24" band="head"/>
+                <Row size="24"/>
+              </Rows>
+              <Band id="head">
+                <Cell colspan="2" text="차변"/>
+                <Cell col="2"/>
+                <Cell col="3" colspan="2" text="대변"/>
+                <Cell row="1" text="잔액"/>
+                <Cell row="1" col="1" text="합계"/>
+                <Cell row="1" col="2" text="과목"/>
+                <Cell row="1" col="3" text="합계"/>
+                <Cell row="1" col="4" text="잔액"/>
+              </Band>
+              <Band id="body">
+                <Cell text="bind:DEBITS_SUM_BALANCE" textAlign="center"/>
+                <Cell col="1" text="bind:DEBITS_SUM" textAlign="center"/>
+                <Cell col="2" text="bind:ACCOUNT_NAME"/>
+                <Cell col="3" text="bind:CREDITS_SUM" textAlign="center"/>
+                <Cell col="4" text="bind:CREDITS_SUM_BALANCE" textAlign="center"/>
+              </Band>
+            </Format>
+          </Formats>
+        </Grid>
+        <Edit id="Edit00" taborder="3" left="673" top="75" width="228" height="40" borderRadius="5px" displaynulltext="회계기수를 조회해주세요." textAlign="center" oneditclick="Edit00_oneditclick" enable="true" readonly="true" font="bold 14px/normal &quot;Arial&quot;,&quot;Malgun Gothic&quot;,&quot;Gulim&quot;" onchanged="Edit00_onchanged"/>
+        <Button id="Button01" taborder="4" text="결산" left="996" top="76" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center" onclick="Button01_onclick"/>
+      </Layout>
+    </Layouts>
+    <Script type="xscript5.1"><![CDATA[include "scripts::commonDate.xjs"
+application = nexacro.getApplication();
+
+this.totaltrialbalanceForm_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{
+	application.gds_period.clearData();
+	/*var period = application.gv_currentPeriod;
+	var callresult = "SEARCH";
+	
+		var id = "totaltrialbalance";
+		var url = "svcSettlement::totaltrialbalance";
+		var resData = "";
+		var reqData = "ds_totaltrialbalance=ds_totaltrialbalance";
+		var args = "period='"+period+"' callresult='"+callresult+"'";
+		var callback = "callback";		
+		this.transaction(id, url, resData, reqData, args, callback);*/
+		
+};
+
+ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+ {
+ 
+ 	var accountPeriodNo=application.gds_period.getColumn(0,"ACCOUNT_PERIOD_NO");
+ 	var callresult = "SEARCH";
+ 	
+ 		var id = "totaltrialbalance";
+ 		var url = "svcSettlement::totaltrialbalance";
+ 		var resData = "";
+ 		var reqData = "ds_totaltrialbalance=ds_totaltrialbalance";
+ 		var args = "accountPeriodNo='"+accountPeriodNo+"' callresult='"+callresult+"'";
+ 		var callback = "callback";		
+ 		this.transaction(id, url, resData, reqData, args, callback);
+ 		
+ 		
+ };
+
+this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+	
+	var accountPeriodNo=application.gds_period.getColumn(0,"ACCOUNT_PERIOD_NO");
+	var callresult = "Y";
+	
+		var id = "selecttotaltrialbalance";
+		var url = "svcSettlement::selecttotaltrialbalance"; //selecttotaltrialbalance
+		var resData = "";
+		var reqData = "ds_totaltrialbalance=ds_totaltrialbalance";
+		var args = "accountPeriodNo='"+accountPeriodNo+"' callresult='"+callresult+"'";
+		var callback = "callback";		
+		this.transaction(id, url, resData, reqData, args, callback);
+		
+		if(this.confirm("결산하시겠습니까?","결산")){
+		this.Button00_onclick();
+		}
+		
+};
+
+
+this.Edit00_oneditclick = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	this.gfnOpen("periodpopup", "popup::periodpopupform.xfdl", "callback", null);
+	
+};
+
+
+
+this.callback = function(trid, ErrorCode, ErrorMsg){
+   
+   if(trid == "periodpopup"){
+	this.Edit00.set_value(application.gds_period.getColumn(0,"FISCAL_YEAR"));
+	//this.Edit00.set_enable("false");
+      if(ErrorCode<0){
+         alert("조회 실패 : "+ErrorMsg);
+      }
+   }
+}
+
+
+
+]]></Script>
+    <Objects>
+      <Dataset id="ds_totaltrialbalance">
+        <ColumnInfo>
+          <Column id="ACCOUNT_PERIOD_NO" type="STRING" size="256"/>
+          <Column id="DEBITS_SUM_BALANCE" type="STRING" size="256"/>
+          <Column id="DEBITS_SUM" type="STRING" size="256"/>
+          <Column id="ACCOUNT_NAME" type="STRING" size="256"/>
+          <Column id="CREDITS_SUM" type="STRING" size="256"/>
+          <Column id="CREDITS_SUM_BALANCE" type="STRING" size="256"/>
+          <Column id="LEV" type="STRING" size="256"/>
+          <Column id="CODE" type="STRING" size="256"/>
+        </ColumnInfo>
+      </Dataset>
+    </Objects>
+  </Form>
+</FDL>

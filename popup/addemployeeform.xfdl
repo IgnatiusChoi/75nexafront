@@ -1,0 +1,67 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<FDL version="2.1">
+  <Form id="boardModal" width="430" height="390" titletext="New Form" onload="boardModal_onload" visible="true">
+    <Layouts>
+      <Layout height="390" width="430">
+        <Static id="Static00" taborder="0" left="50" top="53" width="120" height="60" onclick="Static00_onclick" text="사원코드"/>
+        <Static id="Static01" taborder="1" text="사원이름" left="50" top="103" width="120" height="60"/>
+        <Static id="Static02" taborder="2" text="직급" left="50" top="156" width="120" height="60"/>
+        <Static id="Static03" taborder="3" text="부서이름" left="50" top="203" width="120" height="60"/>
+        <Button id="Button00" taborder="4" text="저장" left="156" top="305" width="120" height="50" onclick="Button00_onclick"/>
+        <TextArea id="TextArea00" taborder="5" left="155" top="70" width="210" height="32" readonly="false"/>
+        <TextArea id="TextArea00_00" taborder="6" left="155" top="117" width="210" height="32"/>
+        <TextArea id="TextArea00_01" taborder="7" left="156" top="168" width="210" height="32"/>
+        <TextArea id="TextArea00_02" taborder="8" left="156" top="220" width="210" height="32"/>
+      </Layout>
+    </Layouts>
+    <Objects/>
+    <Script type="xscript5.1"><![CDATA[application = nexacro.getApplication();
+
+this.boardModal_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+{ 
+   trace("모달창을 띄워봅시다");
+   this.gds_emp.clearData();
+};
+
+
+
+
+
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{
+
+      
+        var empCode = application.gds_emp.getColumn(application.gds_emp.rowposition,'EMP_CODE');
+		if(empCode != null){
+            this.empCode.setCellProperty("Body", 8, "edittype", "none");
+            
+         }
+       
+	   application.gds_emp.addRow();
+       this.empName.set_value(application.gv_empName);
+       
+       this.gds_emp.setColumn(0, "EMP_CODE", this.empCode.value);
+       this.gds_emp.setColumn(0, "EMP_NAME", this.empName.value);
+       this.gds_emp.setColumn(0, "POSITION_NAME", this.positionName.value);
+       this.gds_emp.setColumn(0, "DEPT_NAME", this.deptName.value);
+
+      var id = "insertEmployee";
+      var url = "svcOperate::batchemp1";
+      var resData = "gds_emp=gds_emp";
+      var reqData = "";
+      var args = "";
+      var callback = "callback";
+   
+      this.transaction(id, url, resData, reqData, args, callback);
+	  
+	  
+      
+};]]></Script>
+    <Bind>
+      <BindItem id="item0" compid="TextArea00" propid="value" datasetid="gds_emp" columnid="EMP_CODE"/>
+      <BindItem id="item1" compid="TextArea00_00" propid="value" datasetid="gds_emp" columnid="EMP_NAME"/>
+      <BindItem id="item2" compid="TextArea00_01" propid="value" datasetid="gds_emp" columnid="POSITION_NAME"/>
+      <BindItem id="item3" compid="TextArea00_02" propid="value" datasetid="gds_emp" columnid="DEPT_NAME"/>
+    </Bind>
+  </Form>
+</FDL>
