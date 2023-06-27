@@ -83,8 +83,8 @@
                 <Cell col="4" text="bind:BALANCE_DIVISION" textAlign="center" displaytype="normal" edittype="none" combodataset="ds_combo" combodatacol="BALANCE_DIVISION" combocodecol="BALANCE_DIVISION"/>
                 <Cell col="5" text="bind:CUSTOMER_CODE" textAlign="center"/>
                 <Cell col="6" textAlign="center" text="bind:CUSTOMER_NAME"/>
-                <Cell col="7" text="bind:LEFT_DEBTOR_PRICE" textAlign="center" displaytype="number" edittype="none"/>
-                <Cell col="8" text="bind:RIGHT_CREDITS_PRICE" textAlign="center" displaytype="number" edittype="none"/>
+                <Cell col="7" text="bind:LEFT_DEBTOR_PRICE" textAlign="center" displaytype="number" edittype="text"/>
+                <Cell col="8" text="bind:RIGHT_CREDITS_PRICE" textAlign="center" displaytype="number" edittype="text"/>
               </Band>
             </Format>
           </Formats>
@@ -341,8 +341,6 @@ this.bt_delSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	if(confirm("전표를 삭제하시겠습니까?")){
 		if(status == "승인완료"){
 			alert("승인 된 전표는 삭제가 불가능 합니다.");
-		}else if(status == "작성중(반려)"){
-			alert("반려 된 전표는 삭제가 불가능 합니다.");
 		}else{
 			var slipNo = application.gds_slip.getColumn(application.gds_slip.rowposition, "SLIP_NO");
 			
@@ -376,16 +374,14 @@ this.bt_editSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		alert("전표를 먼저 조회해주세요");
 		return;
 	}
-	if(status != "작성중"){
-		alert("승인/반려된 전표는 수정이 불가능합니다"); 
+	if(status == "승인완료"){
+		alert("승인완료된 전표는 수정이 불가능합니다"); 
 		return;
 	}
 	if(application.gds_journal.rowcount == 0){
 		alert("전표를 선택해주세요");
 		return;
 	}
-	
-	
 	if(confirm("해당 전표를 수정하시겠습니까?")){
 		alert("수정모드로 변환합니다.\n전표를 수정 후 전표저장 버튼을 클릭해주세요");
 		
@@ -440,6 +436,8 @@ this.bt_editSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		}
 		this.grid_journal_detail.set_binddataset("gds_journal_detail_temp"); 
 		application.gds_journal_detail_temp.filter("COUNT=='"+count+"'");
+		this.grid_journal.setCellProperty("body",7,"editable","true");
+		this.grid_journal.setCellProperty("body",8,"editable","true");
 		
 	}else{
 		this.bt_searchSlip.click();
@@ -459,8 +457,8 @@ this.bt_saveSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	var status = application.gds_slip.getColumn(application.gds_slip.rowposition, "SLIP_STATUS");
 	
 	// 기존에는 slipNo가 NEW가 아닐 경우 저장된 전표로 간주했으나, 현재는 slipStatus가 미승인인지 확인
-	if(status != "작성중"){	
-		alert("이미 저장된 전표입니다");
+	if(status == "승인완료"){	
+		alert("이미 승인완료된 전표입니다");
 		return;
 	}else{
 		// 대차 정보
@@ -473,12 +471,12 @@ this.bt_saveSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 			alert("분개 정보를 추가하세요"); 
 			return;	
 		}else{	
-			for(var i=0; i<rowCount; i++){
-				if(application.gds_journal.getColumn(i, "ACCOUNT_NAME") == null){
-					alert("계정 정보를 입력하세요");
-					return;	
-				}
-			}	
+// 			for(var i=0; i<rowCount; i++){
+// 				if(application.gds_journal.getColumn(i, "ACCOUNT_NAME") == null){
+// 					alert("계정 정보를 입력하세요");
+// 					return;	
+// 				}
+// 			}	
 			if(lPrice == 0 || rPrice == 0){
 				alert("차변과 대변 정보를 입력하세요");
 				return;	
