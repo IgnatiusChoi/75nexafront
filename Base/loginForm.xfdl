@@ -53,7 +53,7 @@ this.afterLoginSetting = function(){
 		application.gv_empCode = code;
 		application.gv_empName = name;
 		application.gv_deptCode = deptCode;
-		application.gv_currentPeriod = current_periodNo;
+		application.gv_currentPeriod = current_periodNo;	
 		
 		this.alert(name + " " + position + "님 접속을 환영합니다!");
 		
@@ -69,15 +69,19 @@ this.afterLoginSetting = function(){
 	
 		// 메뉴 권한 목록 가져온다
 		this.gfn_loginAuthority(code);
+		application.gv_authorityCode = application.gds_loginAuthority.getColumn(0, "AUTHORITY_LEVEL");
 		
 		// 로그인한 user정보 세팅
 		var index = application.gds_open.addRow();
 		application.gds_open.setColumn(index, "CODE", position); // 직책 
 		application.gds_open.setColumn(index, "NAME", name);		
-		this.gfn_open("Base::MainForm.xfdl", "Main", "mainForm");
-		application.mainframe.set_visible(true);
+		this.gfn_open("Base::MainPage.xfdl", "MainPage", "mainForm");
+		application.mainframe.set_visible(true);				
 		
+			
 		this.close();
+		
+		
 	
 }
 // 권한 메뉴 목록 함수
@@ -91,6 +95,8 @@ this.gfn_loginAuthority = function(empCode){
 		var callback = "callback";
 		
 		application.transaction(id, url, resData, reqData, args, callback, false);
+		
+		
 }
 
 //콜백

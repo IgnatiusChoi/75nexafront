@@ -52,10 +52,12 @@ gfn_open = function(url, title, sID){
 	}else{  */
 	let pre = "";
 	let post = "";
-		workFrame.set_titletext(title);
+		workFrame.set_titletext(title);		
 		if(url != null){
+					trace("***");
 		trace(url);
 			if(url.startsWith("/") || url.endsWith(".html")){
+
 				pre = url.split('/');
 				post = pre[2].split('.');
 				trace(" 0 "+pre[0]+" 1 "+pre[1]+" 2 "+pre[2]);

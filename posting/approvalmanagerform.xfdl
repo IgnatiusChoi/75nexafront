@@ -188,7 +188,7 @@ this.bt_searchSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInf
 this.grid_slip_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	var check = application.gds_slip.getColumn(e.row, "SLIP_DESCRIPTION");
-		trace("check  :"+check);
+		trace("check 2 :"+check);
 	var slipNo = application.gds_slip.getColumn(application.gds_slip.rowposition, "SLIP_NO");
 	
 	var id = "findJournalListForSlip";

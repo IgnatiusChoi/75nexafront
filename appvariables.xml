@@ -307,6 +307,8 @@
         <Column id="AUTHORITY_NAME" type="STRING" size="256"/>
         <Column id="URL" type="STRING" size="256"/>
         <Column id="isAuthority" type="STRING" size="256"/>
+        <Column id="EMP_CODE" type="STRING" size="256"/>
+        <Column id="EMP_NAME" type="STRING" size="256"/>
       </ColumnInfo>
     </Dataset>
     <Dataset id="gds_account_code">
@@ -404,6 +406,23 @@
         <Column id="BBS_DATE" type="STRING" size="256"/>
         <Column id="EMP_NAME" type="STRING" size="256"/>
         <Column id="CHECKED" type="STRING" size="256"/>
+      </ColumnInfo>
+    </Dataset>
+    <Dataset id="gds_account_detail">
+      <ColumnInfo>
+        <Column id="ACCOUNT_USE_CHECK" type="STRING" size="256" sumtext="계정사용여부"/>
+        <Column id="ACCOUNT_DIVISION" type="STRING" size="256" sumtext="대차구분"/>
+        <Column id="EDITABLE" type="INT" size="256" sumtext="변경가능여부 0:불가 1:가능"/>
+        <Column id="ACCOUNT_CHARACTER" type="STRING" size="256" sumtext="계정그룹명"/>
+        <Column id="ACCOUNT_NAME" type="STRING" size="256" sumtext="계정명"/>
+        <Column id="ACCOUNT_DISPLAY_NAME" type="STRING" size="256" sumtext="계정출력명"/>
+        <Column id="ACCOUNT_DISPLAY_NAME_WITH_CODE" type="STRING" size="256" sumtext="계정출력과목코드"/>
+        <Column id="ACCOUNT_DESCRIPTION" type="STRING" size="256" sumtext="설명"/>
+        <Column id="ACCOUNT_INNER_CODE" type="STRING" size="256" sumtext="계정내부코드"/>
+        <Column id="PARENT_ACCOUNT_INNER_CODE" type="STRING" size="256" sumtext="상위계정내부코드"/>
+        <Column id="TARGET" type="STRING" size="256"/>
+        <Column id="ACCOUNT_CODE" type="STRING" size="256" sumtext="계정코드"/>
+        <Column id="GROUP_CODE" type="STRING" size="256"/>
       </ColumnInfo>
     </Dataset>
   </Datasets>
