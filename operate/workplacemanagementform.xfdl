@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <FDL version="2.1">
-  <Form id="customermanagementform" width="1080" height="570" titletext="New Form" onload="customermanagementform_onload">
+  <Form id="workplacemanagementform" width="1080" height="570" titletext="New Form" onload="workplacemanagementform_onload">
     <Layouts>
       <Layout height="600" width="1100">
         <Static id="Static00" taborder="0" text="사업장 관리" left="61" top="58" width="251" height="75" onclick="Static00_onclick" textAlign="center" font="normal 18pt/normal &quot;Arial&quot;"/>
@@ -60,9 +60,9 @@
           </Formats>
         </Grid>
         <Button id="Bt_reload" taborder="2" text="새로고침" left="562" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Button00_onclick"/>
-        <Button id="Bt_add" taborder="3" text="거래처 추가" left="822" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_add_onclick"/>
-        <Button id="Bt_delete" taborder="4" text="거래처 삭제" left="952" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_delete_onclick"/>
-        <Button id="Bt_regist" taborder="5" text="거래처 등록" left="692" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_regist_onclick"/>
+        <Button id="Bt_add" taborder="3" text="사업장 추가" left="822" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_add_onclick"/>
+        <Button id="Bt_delete" taborder="4" text="사업장 삭제" left="952" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_delete_onclick"/>
+        <Button id="Bt_regist" taborder="5" text="사업장 등록" left="692" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_regist_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -87,7 +87,7 @@
     </Objects>
     <Script type="xscript5.1"><![CDATA[
 application = nexacro.getApplication();
-this.customermanagementform_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
+this.workplacemanagementform_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
 {
 	var id = "allworkplacelist";
 	var url = "svcOperate::allworkplacelist";
@@ -154,7 +154,7 @@ this.Bt_delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	trace("    status : " + status);
 		if(checked==1){
 			if(status=="미승인"){
-				this.confirm(workplaceCode+"  거래처를 삭제 하시겠습니까?");
+				this.confirm(workplaceCode+"  사업장를 삭제 하시겠습니까?");
 				this.ds_workplace.deleteRow(this.ds_workplace.rowposition);
 				var id = "removeWorkplace";
 				var url = "svcAcBase::removeWorkplace";
@@ -164,11 +164,11 @@ this.Bt_delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 				var callback = "callback";
 
 				this.transaction(id, url, resData, reqData, args, callback);
-				this.alert("정상적으로 거래처가 삭제되었습니다.")
+				this.alert("정상적으로 사업장가 삭제되었습니다.")
 					this.reload();
 					break;
 				}else{
-					this.alert("승인된 거래처를 삭제할 수 없습니다.")
+					this.alert("승인된 사업장를 삭제할 수 없습니다.")
 					this.reload();
 					break;
 				}
