@@ -3,7 +3,7 @@
   <Form id="accInnerCodeForm" width="390" height="430" onload="accInnerCodeForm_onload">
     <Layouts>
       <Layout height="430" width="390">
-        <Edit id="searchAccText" taborder="1" left="42" top="55" width="178" height="30" onkeyup="searchAccText_onkeyup"/>
+        <Edit id="searchAccText" taborder="1" left="42" top="55" width="178" height="30" onkeyup="searchAccText_onkeyup" onchanged="searchAccText_onchanged"/>
         <Static id="Static00" taborder="1" text="계정과목" left="97" top="13" width="167" height="35" textAlign="center" font="20px/normal &quot;휴먼엑스포&quot;"/>
         <Button id="bt_searchAcc" taborder="2" text="검색" left="250" top="54" width="80" height="31" onclick="bt_searchAcc_onclick"/>
         <Grid id="Grid00" taborder="3" left="42" top="150" width="298" height="226" binddataset="gds_account" autofittype="col" oncelldblclick="Grid00_oncelldblclick">
@@ -136,6 +136,7 @@ this.Grid00_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventI
 		var n = application.gds_journal.rowposition;
 		application.gds_journal.setColumn(n,"ACCOUNT_INNER_CODE",accountCode);
 		application.gds_journal.setColumn(n,"ACCOUNT_NAME",accountName);
+
 	}
 	this.close();
 };
@@ -154,6 +155,11 @@ this.Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEven
 	var callback = "callback";
 	
 	this.transaction(id, url, reqData, resData, args, callback);
+};
+
+this.searchAccText_onchanged = function(obj:nexacro.Edit,e:nexacro.ChangeEventInfo)
+{
+	
 };
 ]]></Script>
   </Form>
