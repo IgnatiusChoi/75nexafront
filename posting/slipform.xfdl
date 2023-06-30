@@ -374,8 +374,8 @@ this.bt_editSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		alert("전표를 먼저 조회해주세요");
 		return;
 	}
-	if(status == "승인완료"){
-		alert("승인완료된 전표는 수정이 불가능합니다"); 
+	if(status == "승인완료"||status == "승인요청"){
+		alert("승인완료된 / 승인요청중인 전표는 수정이 불가능합니다"); 
 		return;
 	}
 	if(application.gds_journal.rowcount == 0){
@@ -389,6 +389,8 @@ this.bt_editSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		this.bt_addSlip.set_enable(false);
 		this.bt_delSlip.set_enable(false);
 		this.bt_editSlip.set_enable(false);
+		this.bt_addJournal.set_enable(true);
+		this.bt_delJournal.set_enable(true);
 		
 		// 선택 전표 외 나머지 로우 모두 삭제 
 		var s_rowCount = application.gds_slip.getRowCount();
@@ -432,12 +434,11 @@ this.bt_editSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 					application.gds_journal_detail_temp.appendData(application.gds_journal_detail);
 				}
 			}			
-			application.gds_journal.setColumn(a, "JOURNAL_NO", "NEW");
+			//application.gds_journal.setColumn(a, "JOURNAL_NO", "NEW");
 		}
 		this.grid_journal_detail.set_binddataset("gds_journal_detail_temp"); 
 		application.gds_journal_detail_temp.filter("COUNT=='"+count+"'");
-		this.grid_journal.setCellProperty("body",7,"editable","true");
-		this.grid_journal.setCellProperty("body",8,"editable","true");
+
 		
 	}else{
 		this.bt_searchSlip.click();
@@ -659,7 +660,7 @@ this.grid_journal_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClick
 	
 	var count = obj.getCellValue(e.row,0); // 로우, 셀 인덱스 
 
-	if(application.gds_slip.getColumn(application.gds_slip.rowposition,"SLIP_STATUS") == "작성중"){
+	if(application.gds_slip.getColumn(application.gds_slip.rowposition,"SLIP_STATUS") == "작성중"||application.gds_slip.getColumn(application.gds_slip.rowposition,"SLIP_STATUS") == "작성중(반려)"){
 		
 		if(e.cell==2 || e.cell==3){  // 계정 정보
 			this.gfnOpen("dialog_account_journal", "popup::accInnerCodeForm.xfdl", null, null);  // sID, sURL, callbackFunc, param
