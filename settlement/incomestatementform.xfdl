@@ -38,9 +38,10 @@
             </Format>
           </Formats>
         </Grid>
-        <Static id="Static00" taborder="1" text="손익계산서" left="75" top="31" width="251" height="75" onclick="Static00_onclick" textAlign="center" font="normal 18pt/normal &quot;Arial&quot;"/>
-        <Edit id="Edit00" taborder="2" left="760" top="76" width="228" height="40" borderRadius="5px" displaynulltext="회계기수를 조회해주세요." textAlign="center" oneditclick="Edit00_oneditclick" enable="true" readonly="true" font="bold 14px/normal &quot;Arial&quot;,&quot;Malgun Gothic&quot;,&quot;Gulim&quot;" onchanged="Edit00_onchanged"/>
-        <Button id="Button00" taborder="3" text="조회" left="1000" top="76" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center" onclick="Button00_onclick"/>
+        <Edit id="Edit00" taborder="1" left="760" top="76" width="228" height="40" borderRadius="5px" displaynulltext="회계기수를 조회해주세요." textAlign="center" oneditclick="Edit00_oneditclick" enable="true" readonly="true" font="bold 14px/normal &quot;Arial&quot;,&quot;Malgun Gothic&quot;,&quot;Gulim&quot;" onchanged="Edit00_onchanged"/>
+        <Button id="Button00" taborder="2" text="조회" left="1000" top="76" width="68" height="40" background="#5170ad" color="aliceblue" borderRadius="5px" textAlign="center" onclick="Button00_onclick"/>
+        <Static id="Static01_02" taborder="3" text="" left="-1" top="-1" width="191" height="60" onclick="Static01_onclick" background="#5170ad" borderRadius="0px" font="normal 10pt/normal &quot;함초롬돋움&quot;"/>
+        <Static id="Static00_00" taborder="4" text="손익계산서" left="14" top="9" width="164" height="45" onclick="Static00_onclick" textAlign="center" font="normal 700 18pt/normal &quot;함초롬돋움&quot;" border="3px none #000000" background="transparent" borderRadius="0px" color="#fcfbfd"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -59,16 +60,13 @@
     <Script type="xscript5.1"><![CDATA[include "scripts::commonDate.xjs"
 application = nexacro.getApplication();
 
-this.incomestatementform_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo)
-{
-	
-		application.gds_period.clearData();
+this.incomestatementform_onload = function(obj:nexacro.Form,e:nexacro.LoadEventInfo){
+			application.gds_period.clearData();
 };
 
 
 
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
+this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){
 	application.gv_currentPeriod = application.gds_period.getColumn(0,"ACCOUNT_PERIOD_NO");
 	var period = application.gv_currentPeriod;
 	var callresult = "SEARCH";
