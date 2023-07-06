@@ -340,7 +340,18 @@ this.bt_delSlip_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 
 	if(confirm("전표를 삭제하시겠습니까?")){
 		if(status == "승인완료"){
-			alert("승인 된 전표는 삭제가 불가능 합니다.");
+			if(confirm("승인된 전표를 삭제할 경우 처음부터 다시 작성해야합니다. \n전표를 삭제하시겠습니까?")){
+			var slipNo = application.gds_slip.getColumn(application.gds_slip.rowposition, "SLIP_NO");
+			var id = "deleteSlip";
+			var url = "svcPosting::removeSlip";
+			var resData = "";
+			var reqData = "";						//승인된 전표도 경우에 따라 삭제할 필요성이 있어 삭제불가 대신 기능 추가
+			var args = "slipNo='"+slipNo+"'";
+			var callback = "callback";
+			this.transaction(id, url, resData, reqData, args, callback);
+			}else{alert("전표 삭제를 취소했습니다.");
+			return;}
+			
 		}else{
 			var slipNo = application.gds_slip.getColumn(application.gds_slip.rowposition, "SLIP_NO");
 			
