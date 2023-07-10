@@ -7,39 +7,35 @@
           <Formats>
             <Format id="default">
               <Columns>
-                <Column size="155"/>
-                <Column size="155"/>
-                <Column size="155"/>
-                <Column size="140"/>
-                <Column size="155"/>
-                <Column size="155"/>
-                <Column size="155"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
+                <Column size="80"/>
               </Columns>
               <Rows>
-                <Row size="24" band="head"/>
                 <Row size="24" band="head"/>
                 <Row size="24"/>
               </Rows>
               <Band id="head">
-                <Cell colspan="3" text="차변" background="#87c4f1" color="#ededed"/>
-                <Cell col="3"/>
-                <Cell col="4" colspan="3" text="대변" background="#87c4f1" color="#f4f4f4"/>
-                <Cell row="1" text="계"/>
-                <Cell row="1" col="1" text="대체"/>
-                <Cell row="1" col="2" text="현금"/>
-                <Cell row="1" col="3"/>
-                <Cell row="1" col="4" text="현금"/>
-                <Cell row="1" col="5" text="대체"/>
-                <Cell row="1" col="6" text="계"/>
+                <Cell text="debitssum"/>
+                <Cell col="1" text="exceptcashdebits"/>
+                <Cell col="2" text="cashdebits"/>
+                <Cell col="3" text="accountname"/>
+                <Cell col="4" text="cashcredits"/>
+                <Cell col="5" text="exceptcashcredits"/>
+                <Cell col="6" text="creditssum"/>
               </Band>
               <Band id="body">
-                <Cell text="bind:DEBITS_SUM" textAlign="center"/>
-                <Cell col="1" text="bind:EXCEPT_CASH_DEBITS" textAlign="center"/>
-                <Cell col="2" text="bind:CASH_DEBITS" textAlign="center"/>
+                <Cell text="bind:DEBITS_SUM"/>
+                <Cell col="1" text="bind:EXCEPT_CASH_DEBITS"/>
+                <Cell col="2" text="bind:CASH_DEBITS"/>
                 <Cell col="3" text="bind:ACCOUNT_NAME"/>
-                <Cell col="4" text="bind:CASH_CREDITS" textAlign="center"/>
-                <Cell col="5" text="bind:EXCEPT_CASH_CREDITS" textAlign="center"/>
-                <Cell col="6" text="bind:CREDITS_SUM" textAlign="center"/>
+                <Cell col="4" text="bind:CASH_CREDITS"/>
+                <Cell col="5" text="bind:EXCEPT_CASH_CREDITS"/>
+                <Cell col="6" text="bind:CREDITS_SUM"/>
               </Band>
             </Format>
           </Formats>
@@ -53,14 +49,10 @@
     <Objects>
       <Dataset id="ds_detailtrialbalance">
         <ColumnInfo>
-          <Column id="LEV" type="INT" size="256"/>
-          <Column id="ACCOUNT_INNER_CODE" type="STRING" size="256"/>
           <Column id="DEBITS_SUM" type="INT" size="256"/>
           <Column id="EXCEPT_CASH_DEBITS" type="INT" size="256"/>
           <Column id="CASH_DEBITS" type="INT" size="256"/>
           <Column id="ACCOUNT_NAME" type="STRING" size="256"/>
-          <Column id="CREDITS_SUM_BALANCE" type="INT" size="256"/>
-          <Column id="DEBITS_SUM_BALANCE" type="INT" size="256"/>
           <Column id="CASH_CREDITS" type="INT" size="256"/>
           <Column id="EXCEPT_CASH_CREDITS" type="INT" size="256"/>
           <Column id="CREDITS_SUM" type="INT" size="256"/>
@@ -99,8 +91,8 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		var args = "startDate='"+sDate+"' endDate='"+eDate+"'";
 		var callback = "callback";
 
-		this.transaction(id, url, resData, reqData, args, callback);
-		
+		this.transaction(id, url, resData, reqData, args, callback, false);
+		trace("ddddddddd"+this.ds_detailtrialbalance)
 };
 ]]></Script>
   </Form>

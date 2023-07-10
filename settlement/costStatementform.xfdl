@@ -68,7 +68,8 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo){
 // 		var eDay = endDate.toString().substring(6,8);	
 // 		var eDate = eYear+"-"+eMonth+"-"+eDay;
 		
-		trace(year, month, day, selectedDate);
+		trace("year", year, ",", "month", month, ",", "day", day)
+		trace(selectedDate);
 		//trace(eYear, eMonth, eDay, eDate);
 		
 		var id = "costStatement";
