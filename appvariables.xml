@@ -425,17 +425,6 @@
         <Column id="GROUP_CODE" type="STRING" size="256"/>
       </ColumnInfo>
     </Dataset>
-    <Dataset id="ds_detailtrialbalance">
-      <ColumnInfo>
-        <Column id="DEBITS_SUM" type="INT" size="256"/>
-        <Column id="EXCEPT_CASH_DEBITS" type="INT" size="256"/>
-        <Column id="CASH_DEBITS" type="INT" size="256"/>
-        <Column id="ACCOUNT_NAME" type="STRING" size="256"/>
-        <Column id="CASH_CREDITS" type="INT" size="256"/>
-        <Column id="EXCEPT_CASH_CREDITS" type="INT" size="256"/>
-        <Column id="CREDITS_SUM" type="INT" size="256"/>
-      </ColumnInfo>
-    </Dataset>
   </Datasets>
   <Variables>
     <Variable id="gv_accountControlName"/>

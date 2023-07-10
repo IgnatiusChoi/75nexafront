@@ -135,13 +135,13 @@ this.totalaccountledgerform_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 
-	parentAccountInnerCode = this.ds_account.getColumn(e.row, "ACCOUNT_INNER_CODE");
-	trace("          parentAccountInnerCode :  "+parentAccountInnerCode);
-	var id = "detailaccountlist";
-	var url = "svcOperate::detailaccountlist";
+	code = this.ds_account.getColumn(e.row, "ACCOUNT_INNER_CODE");
+	trace("          code :  "+code);
+	var id = "Detailaccountlist";
+	var url = "svcOperate::Detailaccountlist";
 	var reqData = "";
 	var resData = "ds_accountDetail=gds_account";
-	var args = "parentAccountInnerCode='"+parentAccountInnerCode+"'";
+	var args = "code='"+code+"'";
 	var callback = "callback";
 	
 	this.transaction(id, url, reqData, resData, args, callback);
