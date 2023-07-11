@@ -48,28 +48,28 @@
           </Formats>
         </Grid>
         <Static id="Static00" taborder="2" text="자산관리대장" left="75" top="41" width="251" height="75" onclick="Static00_onclick" textAlign="center" font="normal 18pt/normal &quot;Arial&quot;"/>
-        <MaskEdit id="et_parentsCode" taborder="3" left="426" top="221" width="288" height="34" borderRadius="5px" textAlign="center"/>
-        <MaskEdit id="ME_usefulLift" taborder="4" left="426" top="443" width="288" height="34" borderRadius="5px" textAlign="center"/>
-        <MaskEdit id="et_accumulatedDepreciation" taborder="5" left="426" top="517" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
-        <MaskEdit id="et_acquisitionAmount" taborder="6" left="756" top="291" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
-        <MaskEdit id="et_residualValue" taborder="7" left="756" top="517" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
-        <Static id="Static01" taborder="8" text="관리번호" left="433" top="122" width="137" height="29"/>
-        <Static id="Static01_00" taborder="9" text="계정과목" left="433" top="196" width="137" height="29"/>
-        <Static id="Static01_01" taborder="10" text="취득일자" left="433" top="270" width="137" height="29"/>
-        <Static id="Static01_02" taborder="11" text="관리부서" left="433" top="344" width="137" height="29"/>
-        <Static id="Static01_03" taborder="12" text="내용연수" left="433" top="418" width="137" height="29"/>
-        <Static id="Static01_04" taborder="13" text="감가상각누계액" left="433" top="492" width="137" height="29"/>
-        <Static id="Static01_05" taborder="14" text="자산명" left="763" top="122" width="137" height="29"/>
-        <Static id="Static01_00_00" taborder="15" text="계정과목명" left="763" top="196" width="137" height="29"/>
-        <Static id="Static01_01_00" taborder="16" text="취득금액" left="763" top="270" width="137" height="29"/>
-        <Static id="Static01_04_00" taborder="17" text="잔존가치" left="763" top="492" width="137" height="29"/>
-        <Edit id="et_assetItemCode" taborder="18" left="426" top="148" width="288" height="34" borderRadius="5px" textAlign="center"/>
-        <Edit id="et_assetItemName" taborder="19" left="756" top="148" width="288" height="34" borderRadius="5px" textAlign="center"/>
-        <Edit id="et_acquisitionDate" taborder="20" left="426" top="291" width="288" height="34" borderRadius="5px" textAlign="center"/>
-        <Edit id="et_manageMentDeptName" taborder="21" left="426" top="364" width="288" height="34" borderRadius="5px" textAlign="center"/>
-        <Edit id="et_parentsName" taborder="22" left="756" top="221" width="288" height="34" borderRadius="5px" textAlign="center"/>
-        <Button id="Bt_delete" taborder="23" text="삭제" left="1000" top="96" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center"/>
-        <Button id="Bt_regist" taborder="24" text="등록" left="916" top="96" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center" onclick="Bt_regist_onclick"/>
+        <MaskEdit id="ME_usefulLift" taborder="3" left="426" top="443" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <MaskEdit id="et_accumulatedDepreciation" taborder="4" left="426" top="517" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
+        <MaskEdit id="et_acquisitionAmount" taborder="5" left="756" top="291" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
+        <MaskEdit id="et_residualValue" taborder="6" left="756" top="517" width="288" height="34" borderRadius="5px" textAlign="center" format="#,###,###,###"/>
+        <Static id="Static01" taborder="7" text="관리번호" left="433" top="122" width="137" height="29"/>
+        <Static id="Static01_00" taborder="8" text="계정과목" left="433" top="196" width="137" height="29"/>
+        <Static id="Static01_01" taborder="9" text="취득일자" left="433" top="270" width="137" height="29"/>
+        <Static id="Static01_02" taborder="10" text="관리부서" left="433" top="344" width="137" height="29"/>
+        <Static id="Static01_03" taborder="11" text="내용연수" left="433" top="418" width="137" height="29"/>
+        <Static id="Static01_04" taborder="12" text="감가상각누계액" left="433" top="492" width="137" height="29"/>
+        <Static id="Static01_05" taborder="13" text="자산명" left="763" top="122" width="137" height="29"/>
+        <Static id="Static01_00_00" taborder="14" text="계정과목명" left="763" top="196" width="137" height="29"/>
+        <Static id="Static01_01_00" taborder="15" text="취득금액" left="763" top="270" width="137" height="29"/>
+        <Static id="Static01_04_00" taborder="16" text="잔존가치" left="763" top="492" width="137" height="29"/>
+        <Edit id="et_assetItemCode" taborder="17" left="426" top="148" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <Edit id="et_assetItemName" taborder="18" left="756" top="148" width="288" height="34" borderRadius="5px" textAlign="center"/>
+        <Edit id="et_acquisitionDate" taborder="19" left="426" top="291" width="288" height="34" borderRadius="5px" textAlign="center" enable="false"/>
+        <Button id="Bt_delete" taborder="20" text="삭제" left="1000" top="96" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center"/>
+        <Button id="Bt_regist" taborder="21" text="등록" left="916" top="96" width="68" height="40" background="#87c4f1" color="aliceblue" borderRadius="5px" textAlign="center" onclick="Bt_regist_onclick"/>
+        <Combo id="et_parentsName" taborder="22" text="Combo00" left="756" top="221" width="290" height="36" innerdataset="ds_assetitemMask" onitemchanged="Combo00_onitemchanged" datacolumn="PARENTS_NAME"/>
+        <Edit id="et_parentsCode" taborder="23" left="426" top="220" width="290" height="37" enable="false"/>
+        <Combo id="et_manageMentDeptName" taborder="24" text="Combo00" left="426" top="374" width="290" height="36" innerdataset="ds_assetitem" datacolumn="MANAGE_MENT_DEPT_NAME"/>
       </Layout>
     </Layouts>
     <Script type="xscript5.1"><![CDATA[
@@ -98,17 +98,11 @@ if(trid == "assetList"){
 if(trid == "assetitemlist"){
 	if(ErrorCode<0){
 	alert(trid+"  트랜잭션실패 , 사유"+ErrorMsg)
-	}else{
-	strXml = this.ds_assetitem.saveXML();
-	this.alert("             strXml : "+strXml);
 	}
 }
 if(trid == "assetitemlistRegist"){
 	if(ErrorCode<0){
 	alert(trid+"  트랜잭션실패 , 사유"+ErrorMsg)
-	}else{
-	strXml = this.ds_assetitemMask.saveXML();
-	this.alert("             strXml : "+strXml);
 	}
 }
 }
@@ -173,6 +167,14 @@ this.Bt_regist_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		
 		this.reload();
 };
+
+this.Combo00_onitemchanged = function(obj:nexacro.Combo,e:nexacro.ItemChangeEventInfo)
+{
+	var selectedValue = obj.value;
+	var targetText = this.et_parentsCode;
+	var assetCode = this.ds_asset.getColumn(selectedValue-1,"ASSET_CODE");
+	targetText.set_value(assetCode);
+};
 ]]></Script>
     <Objects>
       <Dataset id="ds_assetitem">
@@ -227,18 +229,43 @@ this.Bt_regist_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
           <Column id="RESIDUAL_VALUE" type="STRING" size="256"/>
         </ColumnInfo>
       </Dataset>
+      <Dataset id="ds_deptName">
+        <ColumnInfo>
+          <Column id="DEPT_NAME" type="STRING" size="256"/>
+        </ColumnInfo>
+        <Rows>
+          <Row>
+            <Col id="DEPT_NAME">총무부</Col>
+          </Row>
+          <Row>
+            <Col id="DEPT_NAME">영업부</Col>
+          </Row>
+          <Row>
+            <Col id="DEPT_NAME">생산부</Col>
+          </Row>
+          <Row>
+            <Col id="DEPT_NAME">구매부</Col>
+          </Row>
+          <Row>
+            <Col id="DEPT_NAME">인사부</Col>
+          </Row>
+          <Row>
+            <Col id="DEPT_NAME">개발부</Col>
+          </Row>
+        </Rows>
+      </Dataset>
     </Objects>
     <Bind>
-      <BindItem id="item2" compid="et_parentsCode" propid="value" datasetid="ds_assetitemMask" columnid="PARENTS_CODE"/>
       <BindItem id="item5" compid="et_acquisitionAmount" propid="value" datasetid="ds_assetitemMask" columnid="ACQUISITION_AMOUNT"/>
       <BindItem id="item7" compid="ME_usefulLift" propid="value" datasetid="ds_assetitemMask" columnid="USEFUL_LIFT"/>
       <BindItem id="item8" compid="et_accumulatedDepreciation" propid="value" datasetid="ds_assetitemMask" columnid="ACCUMULATED_DEPRECIATION"/>
       <BindItem id="item9" compid="et_residualValue" propid="value" datasetid="ds_assetitemMask" columnid="RESIDUAL_VALUE"/>
       <BindItem id="item0" compid="et_assetItemCode" propid="value" datasetid="ds_assetitemMask" columnid="ASSET_ITEM_CODE"/>
       <BindItem id="item1" compid="et_assetItemName" propid="value" datasetid="ds_assetitemMask" columnid="ASSET_ITEM_NAME"/>
+      <BindItem id="item6" compid="et_acquisitionDate" propid="value" datasetid="ds_assetitemMask" columnid="ACQUISITION_DATE"/>
+      <BindItem id="item2" compid="et_parentsCode" propid="value" datasetid="ds_assetitemMask" columnid="PARENTS_CODE"/>
       <BindItem id="item3" compid="et_parentsName" propid="value" datasetid="ds_assetitemMask" columnid="PARENTS_NAME"/>
       <BindItem id="item4" compid="et_manageMentDeptName" propid="value" datasetid="ds_assetitemMask" columnid="MANAGE_MENT_DEPT_NAME"/>
-      <BindItem id="item6" compid="et_acquisitionDate" propid="value" datasetid="ds_assetitemMask" columnid="ACQUISITION_DATE"/>
     </Bind>
   </Form>
 </FDL>
