@@ -138,10 +138,10 @@ this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
 	code = this.ds_account.getColumn(e.row, "ACCOUNT_INNER_CODE");
 	trace("          code :  "+code);
 	var id = "Detailaccountlist";
-	var url = "svcOperate::Detailaccountlist";
+	var url = "svcOperate::detailaccountlist";
 	var reqData = "";
-	var resData = "ds_accountDetail=gds_account";
-	var args = "code='"+code+"'";
+	var resData = "ds_accountDetail=gds_account_detail";
+	var args = "parentAccountInnerCode='"+code+"'";
 	var callback = "callback";
 	
 	this.transaction(id, url, reqData, resData, args, callback);
@@ -152,7 +152,7 @@ this.Grid00_00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventI
 {
 	
 	code = this.ds_accountDetail.getColumn(e.row, "ACCOUNT_INNER_CODE");
-	alert("          계정코드 : " + code);
+	trace("          계정코드 : " + code);
 	this.ds_cashJournal.clearData();
 };
 
