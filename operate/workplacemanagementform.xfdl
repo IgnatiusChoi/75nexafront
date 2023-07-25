@@ -47,7 +47,7 @@
                 <Cell col="2" text="bind:COMPANY_CODE" textAlign="center"/>
                 <Cell col="3" text="bind:WORKPLACE_NAME" textAlign="center"/>
                 <Cell col="4" text="bind:BUSINESS_LICENSE" textAlign="center" maskeditformat="###-##-#####" maskedittype="string" displaytype="mask" maskeditautoselect="true"/>
-                <Cell col="5" text="bind:CORPORATION_LICENCE" textAlign="center" maskeditformat="###-##-#####" maskedittype="string" displaytype="mask" maskeditautoselect="true"/>
+                <Cell col="5" text="bind:CORPORATION_LICENCE" textAlign="center" maskeditformat="###-##-#####" maskedittype="string" displaytype="none" maskeditautoselect="true"/>
                 <Cell col="6" text="bind:WORKPLACE_CEO_NAME" textAlign="center"/>
                 <Cell col="7" text="bind:BUSINESS_CONDITIONS" textAlign="center"/>
                 <Cell col="8" text="bind:BUSINESS_ITEMS" textAlign="center"/>
@@ -95,14 +95,14 @@ this.workplacemanagementform_onload = function(obj:nexacro.Form,e:nexacro.LoadEv
 	var reqData = "ds_workplace=ds_workplace";
 	var args = "";
 	var callback = "callback";
-
+	
 	this.transaction(id, url, resData, reqData, args, callback);
 	this.ds_workplace.filter('');
 };
 
 this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-
+	
 	this.reload();
 };
 
@@ -121,64 +121,62 @@ this.Bt_add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	
 };
 
-//사업장 수정/등록
+//사업장 등록
 this.Bt_regist_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
 	var checked = this.ds_workplace.getColumn(e.row,"CHECKED");
 	trace("체크유무 :" +checked);
 	if(checked == 1){
-	
-	var id = "registerworkplace";
-	var url = "svcOperate::registerworkplace";
-	var resData = "ds_workplace=ds_workplace";
-	var reqData = "";
-	var args = "";
-	var callback = "callback";
-
-	this.transaction(id, url, resData, reqData, args, callback);
-	
+		
+		var id = "registerworkplace";
+		var url = "svcOperate::registerworkplace";
+		var resData = "ds_workplace=ds_workplace";
+		var reqData = "";
+		var args = "";
+		var callback = "callback";
+		
+		this.transaction(id, url, resData, reqData, args, callback);
+		this.alert("등록이 완료되었습니다.");
+		//this.reload();
+	}else{
+		this.alert("등록에 실패하였습니다.");
+		//this.reload();
 	}
-	
-	//this.reload();
 };
 
 //사업장 삭제
 this.Bt_delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	var status = this.ds_workplace.getColumn(this.ds_workplace.rowposition, "APPROVAL_STATUS")
-	var checked = "";
-	var workplaceCode= "";
 	var count = this.Grid00.rowcount;
-	trace("    status : " + status);
-	for(index = 0 ; index<count ; index++){
-	checked = this.ds_workplace.getColumn(index,"CHECKED")
-	workplaceCode =this.ds_workplace.getColumn(e.row,"WORKPLACE_CODE");
-	trace("          workplaceCode : "+workplaceCode);
-	trace("    체크유무 :" +checked);
-	trace("    status : " + status);
-		if(checked==1){
-			if(status=="미승인"){
-				this.confirm(workplaceCode+"  사업장를 삭제 하시겠습니까?");
-				this.ds_workplace.deleteRow(this.ds_workplace.rowposition);
-				var id = "removeWorkplace";
-				var url = "svcAcBase::removeWorkplace";
-				var resData = "";
-				var reqData = "";
-				var args = "workplaceCode='"+workplaceCode+"'";
-				var callback = "callback";
-
-				this.transaction(id, url, resData, reqData, args, callback);
-				this.alert("정상적으로 사업장가 삭제되었습니다.")
+	for(var index = 0; index < count; index++){
+		var checked = this.ds_workplace.getColumn(index,"CHECKED") + "";
+		var workplaceCode =this.ds_workplace.getColumn(index,"WORKPLACE_CODE");
+		trace("    workplaceCode : "+workplaceCode);
+		trace("    체크유무 :" +checked);
+		if(checked=="1"){
+				if(this.confirm(workplaceCode+"  사업장을 삭제 하시겠습니까?")==true){
+					this.ds_workplace.deleteRow(index);
+					var id = "removeWorkplace";
+					var url = "svcOperate::removeWorkplace";
+					var resData = "";
+					var reqData = "";
+					var args = "workplaceCode='"+workplaceCode+"'";
+					var callback = "callback";
+					this.transaction(id, url, resData, reqData, args, callback);
+					this.alert("정상적으로 사업장이 삭제되었습니다.")
 					this.reload();
 					break;
-				}else{
-					this.alert("승인된 사업장를 삭제할 수 없습니다.")
-					this.reload();
-					break;
+				} else {
+					alert("삭제를 취소했습니다.");
+					return;
 				}
-				
+			}else{
+				this.alert("사업장을 삭제할 수 없습니다.")
+				this.reload();
+				break;
 			}
-			}
+			
+		}
 };
 
 this.Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
@@ -190,19 +188,19 @@ this.Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
 	trace("이벤트인덱스 :"+e.col);
 	if(e.col==0){
 		if(headCheck=='0'||headCheck==null){
-         num = '1';
-		 
+			num = '1';
+			
 		}else{
-         num = '0';
-      }
-	        for(var i=0; i<size; i++){
-         this.ds_workplace.setColumn(i,"CHECKED",num);
-      }
-
+			num = '0';
+		}
+		for(var i=0; i<size; i++){
+			this.ds_workplace.setColumn(i,"CHECKED",num);
+		}
+		
 		obj.setCellProperty('Head',0,'text',num);
 	}
-
-
+	
+	
 };
 
 this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
@@ -220,21 +218,21 @@ this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
 this.Grid00_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	
-	var status = this.ds_workplace.getColumn(e.row,"APPROVAL_STATUS") ;
-		trace("승인여부 :"+status);
-	if(status == "미승인")
-		obj.setCellProperty("Body", 1, "edittype", "text");
-		obj.setCellProperty("Body", 2, "edittype", "none");
-		obj.setCellProperty("Body", 3, "edittype", "text");
-		obj.setCellProperty("Body", 4, "edittype", "mask");
-		obj.setCellProperty("Body", 5, "edittype", "mask");
-		obj.setCellProperty("Body", 6, "edittype", "text");
-		obj.setCellProperty("Body", 7, "edittype", "text");
-		obj.setCellProperty("Body", 8, "edittype", "text");
-		obj.setCellProperty("Body", 9, "edittype", "text");
-		obj.setCellProperty("Body", 10, "edittype", "mask");
-		obj.setCellProperty("Body", 11, "edittype", "mask");
-		obj.setCellProperty("Body", 12, "edittype", "none");
+	var status = this.ds_workplace.getColumn(e.row,"CHECKED") ;
+	trace("체크여부 :"+checked);
+	if(checked == "1")
+	obj.setCellProperty("Body", 1, "edittype", "text");
+	obj.setCellProperty("Body", 2, "edittype", "none");
+	obj.setCellProperty("Body", 3, "edittype", "text");
+	obj.setCellProperty("Body", 4, "edittype", "mask");
+	obj.setCellProperty("Body", 5, "edittype", "text");
+	obj.setCellProperty("Body", 6, "edittype", "text");
+	obj.setCellProperty("Body", 7, "edittype", "text");
+	obj.setCellProperty("Body", 8, "edittype", "text");
+	obj.setCellProperty("Body", 9, "edittype", "text");
+	obj.setCellProperty("Body", 10, "edittype", "mask");
+	obj.setCellProperty("Body", 11, "edittype", "mask");
+	obj.setCellProperty("Body", 12, "edittype", "none");
 };
 ]]></Script>
   </Form>
