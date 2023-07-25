@@ -86,7 +86,8 @@ this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	
 	var accountPeriodNo=application.gds_period.getColumn(0,"ACCOUNT_PERIOD_NO");
 	var callresult = "Y";
-	
+			if(this.confirm("결산하시겠습니까?","결산")){
+
 		var id = "selecttotaltrialbalance";
 		var url = "svcSettlement::selecttotaltrialbalance"; //selecttotaltrialbalance
 		var resData = "";
@@ -94,10 +95,16 @@ this.Button01_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		var args = "accountPeriodNo='"+accountPeriodNo+"' callresult='"+callresult+"'";
 		var callback = "callback";		
 		this.transaction(id, url, resData, reqData, args, callback);
-		
-		if(this.confirm("결산하시겠습니까?","결산")){
+		this.Button00_onclick();
+
+		} else {
+		alert("결산을 취소했습니다.");
 		this.Button00_onclick();
 		}
+		
+		
+		
+		
 		
 };
 
