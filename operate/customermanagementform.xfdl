@@ -62,10 +62,11 @@
             </Format>
           </Formats>
         </Grid>
-        <Button id="Bt_reload" taborder="2" text="새로고침" left="562" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Button00_onclick"/>
+        <Button id="Bt_reload" taborder="2" text="새로고침" left="430" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Button00_onclick"/>
         <Button id="Bt_add" taborder="3" text="거래처 추가" left="692" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_add_onclick"/>
         <Button id="Bt_delete" taborder="4" text="거래처 삭제" left="952" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_delete_onclick"/>
-        <Button id="Bt_regist" taborder="5" text="추가/수정 등록" left="822" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_regist_onclick"/>
+        <Button id="Bt_regist" taborder="5" text="거래처 등록" left="822" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_regist_onclick"/>
+        <Button id="Bt_update" taborder="6" text="거래처 수정" left="562" top="111" width="120" height="29" borderRadius="5px" background="#87c4f1" color="aliceblue" onclick="Bt_update_onclick"/>
       </Layout>
     </Layouts>
     <Objects>
@@ -98,16 +99,39 @@ this.customermanagementform_onload = function(obj:nexacro.Form,e:nexacro.LoadEve
 	var reqData = "ds_customer=ds_customer";
 	var args = "";
 	var callback = "callback";
-
+	
 	this.transaction(id, url, resData, reqData, args, callback);
 	this.ds_customer.filter('');
 	trace(reqData);
 };
 
-this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
-{
-
+//거래처 수정
+this.Bt_update_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
+{	
+	var checked = this.ds_customer.getColumn(e.row, "CHECKED");
+	if(checked == 1){
+	if(this.confirm(customerCode + "해당 거래처를 수정하시겠습니까?") == true){
+	
+	var id = "updatecustomer";
+	var url = "svcOperate::updateCustomer";
+	var reqData = "ds_customer=ds_customer:u";
+	var resData = "";
+	var args = "";
+	var callback = "callback";
+	this.transaction(id, url, reqData, resData, args, callback);
+	
+	this.alert("수정이 완료되었습니다.");
 	this.reload();
+	/*break;*/
+	} else {
+		alert("수정을 취소했습니다.");
+		return;
+	}
+	}else{
+		this.alert("수정을 할 수가 없습니다.");
+		this.reload();
+		/*break;*/
+	}
 };
 
 //거래처 추가
@@ -116,70 +140,67 @@ this.Bt_add_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 	var rCount = this.ds_customer.getRowCount();	
 	this.ds_customer.clearData();
 	var nRow = this.ds_customer.addRow();	
-
+	
  	this.ds_customer.setColumn(nRow,"CUSTOMER_CODE","PTN-"+ (rCount + 1) +"");
  	this.ds_customer.setColumn(nRow,"WORKPLACE_CODE","BRC-01");
 	
 };
 
-//추가/수정 등록
+//거래처 등록
 this.Bt_regist_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {	
 	
-
+	var checked = this.ds_customer.getColumn(e.row, "CHECKED");
 	trace("체크유무 :" +checked);
 	if(checked == 1){
-	
-	var id = "registercustomer";
-	var url = "svcOperate::registerCustomer";
-	var reqData = "ds_customer=ds_customer:u";
-	var resData = "";
-	var args = "";
-	var callback = "callback";
-
-	this.transaction(id, url, reqData, resData, args, callback);
-	
+		
+		var id = "registercustomer";
+		var url = "svcOperate::registerCustomer";
+		var reqData = "ds_customer=ds_customer:u";
+		var resData = "";
+		var args = "";
+		var callback = "callback";
+		
+		this.transaction(id, url, reqData, resData, args, callback);
+		
 	}
-	
-	//this.reload();
+	this.alert("거래처 등록이 완료되었습니다.");
+	this.reload();
 };
 
+//거래처 삭제
 this.Bt_delete_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 {
-	var status = this.ds_customer.getColumn(this.ds_customer.rowposition, "APPROVAL_STATUS")
-	var checked = "";
-	var workplaceCode= "";
 	var count = this.Grid00.rowcount;
-	trace("    status : " + status);
-	for(index = 0 ; index<count ; index++){
-	checked = this.ds_customer.getColumn(index,"CHECKED")
-	workplaceCode =this.ds_customer.getColumn(e.row,"WORKPLACE_CODE");
-	trace("          workplaceCode : "+workplaceCode);
-	trace("    체크유무 :" +checked);
-	trace("    status : " + status);
-		if(checked==1){
-			if(status=="미승인"){
-				this.confirm(workplaceCode+"  거래처를 삭제 하시겠습니까?");
-				this.ds_customer.deleteRow(this.ds_customer.rowposition);
-				var id = "removeWorkplace";
-				var url = "svcAcBase::removeWorkplace";
+	for (var index = count - 1; index >= 0; index--) {
+		var checked = this.ds_customer.getColumn(index, "CHECKED") + "";
+		var customerCode = this.ds_customer.getColumn(index, "CUSTOMER_CODE");
+		trace("customerCode: " + customerCode);
+		trace("체크유무: " + checked);
+		if (checked === "1") {
+			if (this.confirm(customerCode + " 거래처를 삭제하시겠습니까?") == true){
+				this.ds_customer.deleteRow(index);
+				
+				var id = "removeCustomer";
+				var url = "svcOperate::removeCustomer";
 				var resData = "";
 				var reqData = "";
-				var args = "workplaceCode='"+workplaceCode+"'";
+				var args = "customerCode='" + customerCode + "'";
 				var callback = "callback";
-
 				this.transaction(id, url, resData, reqData, args, callback);
-				this.alert("정상적으로 거래처가 삭제되었습니다.")
-					this.reload();
-					break;
-				}else{
-					this.alert("승인된 거래처를 삭제할 수 없습니다.")
-					this.reload();
-					break;
-				}
-				
+				this.alert("정상적으로 거래처가 삭제되었습니다.");
+				this.reload();
+				break;
+			} else {
+				alert("삭제를 취소했습니다.");
+				return;
 			}
-			}
+		}else {
+			this.alert("거래처를 삭제할 수 없습니다.");
+			this.reload();
+			break;
+		}
+	}
 };
 
 this.Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
@@ -191,19 +212,19 @@ this.Grid00_onheadclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
 	trace("이벤트인덱스 :"+e.col);
 	if(e.col==0){
 		if(headCheck=='0'||headCheck==null){
-         num = '1';
-		 
+			num = '1';
+			
 		}else{
-         num = '0';
-      }
-	        for(var i=0; i<size; i++){
-         this.ds_customer.setColumn(i,"CHECKED",num);
-      }
-
+			num = '0';
+		}
+		for(var i=0; i<size; i++){
+			this.ds_customer.setColumn(i,"CHECKED",num);
+		}
+		
 		obj.setCellProperty('Head',0,'text',num);
 	}
-
-
+	
+	
 };
 
 this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
@@ -221,21 +242,22 @@ this.Grid00_oncellclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo
 this.Grid00_oncelldblclick = function(obj:nexacro.Grid,e:nexacro.GridClickEventInfo)
 {
 	
-	var status = this.ds_customer.getColumn(e.row,"APPROVAL_STATUS") ;
-		trace("승인여부 :"+status);
-	if(status == "미승인")
-		obj.setCellProperty("Body", 1, "edittype", "text");
-		obj.setCellProperty("Body", 2, "edittype", "none");
-		obj.setCellProperty("Body", 3, "edittype", "text");
-		obj.setCellProperty("Body", 4, "edittype", "mask");
-		obj.setCellProperty("Body", 5, "edittype", "mask");
-		obj.setCellProperty("Body", 6, "edittype", "text");
-		obj.setCellProperty("Body", 7, "edittype", "text");
-		obj.setCellProperty("Body", 8, "edittype", "text");
-		obj.setCellProperty("Body", 9, "edittype", "text");
-		obj.setCellProperty("Body", 10, "edittype", "mask");
-		obj.setCellProperty("Body", 11, "edittype", "mask");
-		obj.setCellProperty("Body", 12, "edittype", "none");
+	var status = this.ds_customer.getColumn(e.row,"CHECKED") ;
+	trace("체크여부 :"+checked);
+	if(checked == "1")
+	obj.setCellProperty("Body", 1, "edittype", "text");
+	obj.setCellProperty("Body", 2, "edittype", "none");
+	obj.setCellProperty("Body", 3, "edittype", "text");
+	obj.setCellProperty("Body", 4, "edittype", "text");
+	obj.setCellProperty("Body", 5, "edittype", "text");
+	obj.setCellProperty("Body", 6, "edittype", "mask");
+	obj.setCellProperty("Body", 7, "edittype", "text");
+	obj.setCellProperty("Body", 8, "edittype", "text");
+	obj.setCellProperty("Body", 9, "edittype", "text");
+	obj.setCellProperty("Body", 10, "edittype", "text");
+	obj.setCellProperty("Body", 11, "edittype", "text");
+	obj.setCellProperty("Body", 12, "edittype", "mask");
+	obj.setCellProperty("Body", 13, "edittype", "mask");
 };
 ]]></Script>
   </Form>
