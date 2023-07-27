@@ -83,6 +83,9 @@ this.Button00_onclick = function(obj:nexacro.Button,e:nexacro.ClickEventInfo)
 		
 		this.transaction(id, url, resData, reqData, args, callback);
 		
+		application.gds_journal.filter("");
+
+		
 		// 대차변값 null 날라오면 0으로 변환
 		var count = this.Grid00.rowcount;
 		for(i = 0 ; i<count ; i++){
